@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="ja">
+<head>
+  <title>
+    <link rel="stylesheet" href="{% static 'css/global.css' %}">
+    {% block title %} Group 4 Project {% endblock %}
+  </title>
+</head>
+<body>
+  <div id="content">
+    {% block content %}{% endblock %}
+  </div>
+</body>
+</html>
