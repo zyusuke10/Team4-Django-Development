@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+{% extends 'team_4_app/base.html' %}
+
+{% block content %}
+  <h2 class='rakuten-live-logo'>Rakuten Live</h2>
+
+
+  <div class='shop-story-container'>
+    {% for shop_story in shop_stories %}
+      <div class='shop-story'>
+        <div class='shop-logo-gradient'>
+          <div
+            style='background-image: url({{ shop_story.image_url }});'
+            class='shop-logo'
+          >
+          </div>
+        </div>
+        <p class='shop-story-code'>{{ shop_story.shop_code }}</p>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class='margin-x divider'></div>
+
+  <div class='shop-video-container'>
+    {% for promotional_video in promotionalvideo_list %}
+      <a
+        rel='noreferrer noopener'
+        href='/team_4_app/promotional_video/{{promotional_video.id}}'
+        class='shop-video-card'
+      >
+        <div class='shop-video-overlay'>
+          <video 
+            class='shop-video'
+          >
+            <source src='{{promotional_video.video_url}}' type='video/mp4' />
+          </video>
+        </div>
+        <p class='shop-video-title'>
+          {{ promotional_video.title }}
+        </p>
+      </a>
+    {% endfor %}
+  </div>
+{% endblock %}
