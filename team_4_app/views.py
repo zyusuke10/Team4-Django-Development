@@ -1,34 +1,27 @@
 from django.shortcuts import render
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView, TemplateView
 
 from .models import PromotionalVideo
+from .constants import shop_stories
+
+class ShopProductListView(TemplateView):
+    template_name = 'team_4_app/shopproduct_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        return context
+
 
 class PromotionalVideoListView(ListView):
     model = PromotionalVideo
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['shop_stories'] = [
-            {
-                'image_url': 'https://www.rakuten.ne.jp/gold/rakutenmobile-store/assets/img/common/logo-rmobile-1line.svg?200424',
-                'shop_code': 'rakutenmobile-store'
-            },
-            {
-                'image_url': 'https://www.rakuten.ne.jp/gold/rakutenmobile-store/assets/img/common/logo-rmobile-1line.svg?200424',
-                'shop_code': 'rakutenmobile-store'
-            },
-            {
-                'image_url': 'https://www.rakuten.ne.jp/gold/rakutenmobile-store/assets/img/common/logo-rmobile-1line.svg?200424',
-                'shop_code': 'rakutenmobile-store'
-            },
-            {
-                'image_url': 'https://www.rakuten.ne.jp/gold/rakutenmobile-store/assets/img/common/logo-rmobile-1line.svg?200424',
-                'shop_code': 'rakutenmobile-store'
-            },
-            {
-                'image_url': 'https://static.vecteezy.com/system/resources/previews/010/994/232/non_2x/nike-logo-black-clothes-design-icon-abstract-football-illustration-with-white-background-free-vector.jpg',
-                'shop_code': 'nike-official'
-            }
-        ]
+        context['shop_stories'] = shop_stories
 
         return context
+
+class PromotionalVideoDetailView(DetailView):
+    model = PromotionalVideo
+    template_name = 'team_4_app/promotionalvideo_detail.html'
+
