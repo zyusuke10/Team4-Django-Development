@@ -7,23 +7,21 @@ A project created in an attempt to boost Rakuten sales for users in their 20's
 A commit message should start with a category of change. You can pretty much use the following 4 categories for everything: feat, fix, refactor, and chore.
 
 feat is for adding a new feature
-fix is for fixing a bug
-refactor is for changing code for peformance or convenience purpose (e.g. readibility)
-chore is for everything else (writing documentation, formatting, adding tests, cleaning useless code etc.)
-
-example git commit message:
 ```
 feat: add new button
 ```
 
+fix is for fixing a bug
 ```
 fix: fix render bug
 ```
 
+refactor is for changing code for peformance or convenience purpose (e.g. readibility)
 ```
 refactor: rewrite function x to be more reusable
 ```
 
+chore is for everything else (writing documentation, formatting, adding tests, cleaning useless code etc.)
 ```
 chore: write documentation
 ```
@@ -35,7 +33,6 @@ Create python venv to isolate the project modules from others
 python -m venv env
 ```
 Activate the python virtual environment
-Mac
 ```
 source env/bin/activate
 ```
