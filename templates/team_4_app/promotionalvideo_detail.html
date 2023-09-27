@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+{% extends 'team_4_app/base.html' %}
+
+{% block content %}
+  <video 
+    autoplay loop controls
+    class='video-detail'
+  >
+    <source src='{{promotionalvideo.video_url}}' type='video/mp4' />
+  </video>
+  <a
+    rel='noreferrer noopener'
+    href='/team-4-app/shop/{{promotionalvideo.shop_code}}'
+  >
+    See Products
+  </a>
+{% endblock %}
