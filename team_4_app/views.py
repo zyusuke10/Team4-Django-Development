@@ -4,6 +4,8 @@ import os
 import requests
 import os
 
+import random
+
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView, TemplateView
@@ -42,32 +44,10 @@ class CartListView(ListView):
         for product in product_info_list:
             itemPrice = product["Items"][0]["Item"]["itemPrice"]
             total_price+=itemPrice
-                
+
         context['product_info_list'] = product_info_list
         context['order_total'] = total_price
         context['total_price'] = total_price + 400 #Constant shipping fee
-
-        return context
-
-class ShopProductListView(TemplateView):
-    template_name = 'team_4_app/shopproduct_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        shop_code = self.kwargs['shop_code']
-
-        rakuten_api_endpoint = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?"
-        rakuten_applicationId = os.environ.get('APPLICATION_ID')
-
-        params = {
-                    'applicationId':rakuten_applicationId,
-                    'shopCode': shop_code,
-            }
-        response = requests.get(rakuten_api_endpoint,params=params)
-
-        if response == 200:
-            data = response.json()
-            context['shop_data'] = data
 
         return context
 
@@ -115,5 +95,18 @@ class ProductListView(TemplateView):
         context = super().get_context_data(**kwargs)
         shop_code = self.request.GET.get(key='shop_code', default='grazia-doris')
         products = get_products_list(shop_code)
+        for i, product in enumerate(products):
+            if i==0:
+                product['random_float'] = 1
+            else:
+                product['random_float'] = random.random()
+            review = round(product['reviewAverage'])
+            if review == 0:
+                review += 1
+            product['reviewAverage'] = list(range(review))
+
         context['products'] = products
+        random_float_list = [random.random() for _ in range(len(products))]
+        random_float_list[0] = 1
+        context['random_float_list'] = random_float_list
         return context
