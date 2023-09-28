@@ -36,6 +36,28 @@ class CartListView(ListView):
         
         return context
     
+class ShopProductListView(TemplateView):
+    template_name = 'team_4_app/shopproduct_list.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        shop_code = self.kwargs['shop_code']
+
+        rakuten_api_endpoint = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?"
+        rakuten_applicationId = os.getenv('APPLICATION_ID')
+
+        params = {
+                    'applicationId':rakuten_applicationId,
+                    'shopCode': shop_code, 
+            }
+        response = requests.get(rakuten_api_endpoint,params=params)
+
+        if response == 200:
+            data = response.json()
+            context['shop_data'] = data
+        
+        return context
+    
 @require_POST
 def delete_item_from_cart(request, pk, product_id):
     print(request.POST)
