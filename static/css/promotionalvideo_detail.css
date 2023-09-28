@@ -1,0 +1,72 @@
+.promotionalvideo-container {
+  position: relative;
+  overflow-x: hidden;
+}
+
+.video-overlay {
+  content: '';
+  position: absolute;
+  display: block;
+  width: 100vw;
+  height: 20rem;
+  background: linear-gradient(to top, rgba(255,255,255,0) 0%, #000000 90%);
+  opacity: 0.75;
+  top: 0;
+  z-index: 2;
+}
+
+.video-detail-header {
+  position: absolute;
+  top: 1.5rem;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 3;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.rakuten-live-logo {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin: 2rem 2.5rem;
+}
+
+.video-detail-close {
+  background-image: url('/static/svg/close.svg');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 5rem;
+  height: 5rem;
+  margin: 0 2.5rem; 
+  padding: 0; 
+}
+
+.video-detail {
+  height: 100vh;
+}
+
+.see-products-button {
+  position: absolute;
+  display: block;
+  bottom: 3rem;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+
+  text-align: center;
+  width: calc(100vw / 2);
+  
+  text-decoration: none;
+  font-weight: bold;
+  color: #ffffff;
+  font-size: 2rem;
+  padding: 2.5rem 4rem;
+  background-color: #F59A23;
+  border-radius: 5rem;
+}

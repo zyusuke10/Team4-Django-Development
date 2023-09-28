@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 {% extends 'team_4_app/base.html' %}
 
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/promotionalvideo_list.css' %}">
+{% endblock %}
+
 {% block content %}
   <h2 class='rakuten-live-logo'>Rakuten Live</h2>
 
-
   <div class='shop-story-container'>
     {% for shop_story in shop_stories %}
-      <div class='shop-story'>
+      <a
+        rel='noreferrer noopener'
+        href='/team-4-app/promotional-video/{{promotional_video.id}}'
+        class='shop-story'
+      >
         <div class='shop-logo-gradient'>
           <div
             style='background-image: url({{ shop_story.image_url }});'
@@ -16,7 +25,7 @@
           </div>
         </div>
         <p class='shop-story-code'>{{ shop_story.shop_code }}</p>
-      </div>
+      </a>
     {% endfor %}
   </div>
 
