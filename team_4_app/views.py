@@ -10,7 +10,7 @@ from django.views.generic import ListView, DetailView, TemplateView
 
 from .models import PromotionalVideo, Cart
 from .get_products_list import get_products_list
-from .constants import shop_stories
+from .constants import shop_code_to_shop_image_url_dict
 
 # Create your views here.
 class CartListView(ListView):
@@ -77,20 +77,22 @@ def delete_item_from_cart(request, pk, product_id):
 
     return redirect('team_4_app:', pk=pk)
 
-class ShopProductListView(TemplateView):
-    template_name = 'team_4_app/shopproduct_list.html'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
 class PromotionalVideoListView(ListView):
     model = PromotionalVideo
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['shop_stories'] = shop_stories
+
+        filtered_shop_stories = []
+        for promotional_video in context['promotionalvideo_list']:
+            if promotional_video.shop_code in shop_code_to_shop_image_url_dict:
+                filtered_shop_stories.append({
+                    'promotional_video_id': promotional_video.id,
+                    'image_url': shop_code_to_shop_image_url_dict[promotional_video.shop_code],
+                    'shop_code': promotional_video.shop_code,
+                })
+
+        context['shop_stories'] = filtered_shop_stories
 
         return context
 
