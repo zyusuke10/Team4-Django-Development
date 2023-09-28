@@ -1,73 +1,58 @@
 import requests
 import os
 
-import requests
-import os
-
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
-from django.views.generic import ListView, DetailView, TemplateView
+from django.views.generic import ListView, DeleteView, DetailView, TemplateView
+from django.urls import reverse_lazy
+from urllib.parse import urljoin, urlparse
 
 from .models import PromotionalVideo, Cart
 from .get_products_list import get_products_list
 from .constants import shop_code_to_shop_image_url_dict
+from .apis import get_products_by_product_ids, get_products_by_shop_code
 
-# Create your views here.
 class CartListView(ListView):
     model = Cart
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        cart_items = list(context['object_list'].values_list('product_id', flat=True))
-        product_info_list = []
-
-        rakuten_api_endpoint = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?'
-        rakuten_applicationId = os.environ.get('APPLICATION_ID')
-
-        total_price = 0
-
-        for cart_item in cart_items:
-
-            product_id = cart_item
-            params = {
-                'applicationId': rakuten_applicationId,
-                'itemCode': product_id,
-            }
-            response = requests.get(rakuten_api_endpoint,params=params)
-
-            if response.status_code == 200:
-                product_info = response.json()
-                product_info_list.append(product_info)
-
-        for product in product_info_list:
-            itemPrice = product["Items"][0]["Item"]["itemPrice"]
-            total_price+=itemPrice
-                
-        context['product_info_list'] = product_info_list
-        context['order_total'] = total_price
-        context['total_price'] = total_price + 400 #Constant shipping fee
-
+        context['product_info_list'] = get_products_by_product_ids(context['object_list'])
         return context
 
-class ShopProductListView(TemplateView):
-    template_name = 'team_4_app/shopproduct_list.html'
+class CartDeleteView(DeleteView):
+    model = Cart
+    template_name = 'team_4_app/cart_delete.html'
+    success_url = reverse_lazy('team_4_app:cart')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        shop_code = self.kwargs['shop_code']
+        products = get_products_by_product_ids([context['object']])
+        context['product'] = None
+        if len(products) > 0:
+            context['product'] = products[0]
+            
+            # Get full size image url by removing querystring from url
+            medium_image_url = context['product']['mediumImageUrls'][0]
+            context['product']['image_url'] = urljoin(medium_image_url, urlparse(medium_image_url).path)
 
-        rakuten_api_endpoint = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?"
-        rakuten_applicationId = os.environ.get('APPLICATION_ID')
+        return context
 
-        params = {
-                    'applicationId':rakuten_applicationId,
-                    'shopCode': shop_code,
-            }
-        response = requests.get(rakuten_api_endpoint,params=params)
+class CheckoutListView(ListView):
+    model = Cart
 
-        if response == 200:
-            data = response.json()
-            context['shop_data'] = data
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['product_info_list'] = get_products_by_product_ids(context['object_list'])
+        context['total_price'] = 0
+
+        for product in context['product_info_list']:
+            itemPrice = product["Items"][0]["Item"]["itemPrice"]
+            context['total_price'] += itemPrice
+                
+        context['order_total'] = context['total_price']
+        context['total_price'] += 400 #Constant shipping fee
 
         return context
 

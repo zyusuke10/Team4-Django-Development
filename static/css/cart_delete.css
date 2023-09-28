@@ -1,0 +1,48 @@
+.header {
+  position: sticky;
+  top: 0;
+  padding: 2rem 1.5rem;
+  background: #ffffff;
+
+  > a {
+    text-decoration: none;
+    color: #A30014;
+    font-size: 2.5rem;
+    font-weight: bold;
+  }
+}
+
+.product-detail-container {
+  margin: 2rem 1.5rem;
+}
+
+.product-image {
+  width: 100%;
+}
+
+.product-name {
+  font-size: 2rem;
+}
+
+.product-price {
+  font-size: 1.75rem;
+  font-weight: 800;
+}
+
+.product-item-delete-button input {
+  width: 100%;
+  border: none;
+  text-decoration: none;
+  color: #000000;
+  font-size: 2rem;
+  font-weight: 800;
+  
+  background: #d5d5d5;
+  padding: 1rem;
+  border-radius: 1.5rem;
+}
+
+.product-item-delete-button::hover input {
+  background: #A30014;
+}
+

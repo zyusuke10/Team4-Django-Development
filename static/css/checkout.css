@@ -1,22 +1,3 @@
-@font-face {
-  font-family: "rg-icon";
-  src: url("../rc-icon.woff");
-}
-
-body {
-  margin: 0;
-}
-
-p,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: "rg-icon", "serif", "sans-serif";
-}
-
 .checkout-container {
   padding: 4rem;
 }
