@@ -1,0 +1,156 @@
+@font-face {
+  font-family: "rg-icon";
+  src: url("../rc-icon.woff");
+}
+
+body {
+  margin: 0;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "rg-icon", "serif", "sans-serif";
+}
+
+.checkout-container {
+  padding: 4rem;
+}
+.checkout-header {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 2rem 1.5rem;
+}
+
+.checkout-header a {
+  text-decoration: none;
+  color: #a30014;
+}
+
+.delivery-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+}
+
+.delivery-info {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  gap: 0.5rem;
+  line-height: 0.5rem;
+  margin-top: -1rem;
+}
+
+.product-container {
+  background-color: rgb(240, 240, 240);
+  margin-top: 4rem;
+  padding: 1rem;
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.product-item-right {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  font-size: 1.5rem;
+}
+
+.product-item-left {
+  display: flex;
+  align-items: center;
+  padding: 2rem;
+}
+
+.product-item-left img {
+  height: 15rem;
+  width: 15rem;
+}
+
+.product-price {
+  font-weight: 800;
+}
+
+.shipping-option-container {
+  background-color: rgb(213, 249, 242);
+  font-size: 1.5rem;
+  padding: 2rem;
+  margin-top: 1rem;
+}
+
+.shipping-option-title {
+  color: rgb(24, 221, 149);
+  display: flex;
+  justify-content: left;
+  border-bottom: solid 1px grey;
+}
+
+.shipping-option-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+.shipping-option-price {
+  font-weight: 800;
+}
+
+.price-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 2rem;
+  border-bottom: solid 1px grey;
+  font-size: 1.5rem;
+}
+
+.price-container-p {
+  font-weight: 800;
+}
+
+.total-container {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  line-height: 1rem;
+}
+
+.total-left {
+  margin-left: 5rem;
+  display: flex;
+  flex-direction: column;
+  font-weight: 800;
+}
+
+.total-right {
+  background-color: rgb(255, 94, 0);
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  font-weight: 800;
+  font-size: 2rem;
+  width: 20rem;
+}
+
+.order-btn a {
+  text-decoration: none;
+  color: white;
+}
+
+.total-left-tx1 {
+  font-size: 2rem;
+}
+
+.total-left-tx2 {
+  color: red;
+  font-size: 2rem;
+  margin-left: 8rem;
+}

@@ -17,9 +17,12 @@ class CartListView(ListView):
         product_info_list = []
         
         rakuten_api_endpoint = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?'
-        rakuten_applicationId = os.getenv('APPLICATION_ID')
-        
+        rakuten_applicationId = os.environ.get('APPLICATION_ID')
+
+        total_price = 0
+
         for cart_item in cart_items:
+
             product_id = cart_item
             params = {
                 'applicationId': rakuten_applicationId,
@@ -30,10 +33,14 @@ class CartListView(ListView):
             if response.status_code == 200:
                 product_info = response.json()
                 product_info_list.append(product_info)
+
+        for product in product_info_list:
+            itemPrice = product["Items"][0]["Item"]["itemPrice"]
+            total_price+=itemPrice
                 
         context['product_info_list'] = product_info_list
-        print(product_info_list)
-        
+        context['order_total'] = total_price
+        context['total_price'] = total_price + 400 #Constant shipping fee
         return context
     
 class ShopProductListView(TemplateView):
@@ -44,7 +51,7 @@ class ShopProductListView(TemplateView):
         shop_code = self.kwargs['shop_code']
 
         rakuten_api_endpoint = "https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601?"
-        rakuten_applicationId = os.getenv('APPLICATION_ID')
+        rakuten_applicationId = os.environ.get('APPLICATION_ID')
 
         params = {
                     'applicationId':rakuten_applicationId,
@@ -92,3 +99,4 @@ class PromotionalVideoListView(ListView):
 class PromotionalVideoDetailView(DetailView):
     model = PromotionalVideo
     template_name = 'team_4_app/promotionalvideo_detail.html'
+
