@@ -1,17 +1,38 @@
 <!DOCTYPE html>
 {% extends 'team_4_app/base.html' %}
 
+{% load static %}
+
+{% block head %}
+  <link rel="stylesheet" href="{% static 'css/promotionalvideo_detail.css' %}">
+{% endblock %}
+
 {% block content %}
-  <video 
-    autoplay loop controls
-    class='video-detail'
-  >
-    <source src='{{promotionalvideo.video_url}}' type='video/mp4' />
-  </video>
-  <a
-    rel='noreferrer noopener'
-    href='/team-4-app/shop/{{promotionalvideo.shop_code}}'
-  >
-    See Products
-  </a>
+  <div class='promotionalvideo-container'>
+    <div class='video-overlay'></div>
+    <div class='video-detail-header'>
+      <h2 class='rakuten-live-logo'>Rakuten&#13;&#10;Live</h2>
+      <a
+        rel='noreferrer noopener'
+        href='/team-4-app/promotional-video/'
+      >
+        <div class='video-detail-close'>
+        </div>
+      </a>
+    </div>
+    <video 
+      autoplay 
+      loop
+      class='video-detail'
+    >
+      <source src='{{promotionalvideo.video_url}}' type='video/mp4' />
+    </video>
+    <a
+      rel='noreferrer noopener'
+      href='/team-4-app/product_list/?shop_code={{promotionalvideo.shop_code}}'
+      class='see-products-button'
+    >
+      See Products
+    </a>
+  </div>
 {% endblock %}
