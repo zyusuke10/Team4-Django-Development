@@ -1,25 +1,45 @@
 {% extends "app/base.html" %}
 {% load static %}
 {% block head %}
-    <link rel="stylesheet" href="{% static 'app/css/product_list.css' %}">
+    <link rel="stylesheet" href="{% static 'css/product_list.css' %}">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
 {% endblock %}
 {% block content %}
-    <h1>Product List</h1>
-    <a href="">Go Back to Products</a>
-    <a href="">Go to Cart</a>
+    <div class="container-fluid" id="header">
+        <div class="row justify-content-between">
+            <div class="col-4" id="back_to_product">
+                <a href="" style="text-decoration:none;"><i class="bi bi-arrow-left"></i> Products </a>
+            </div>
+            <div class="col-1">
+                <a href=""><i class="bi bi-cart-fill"></i></a>
+            </div>
+        </div>
+    </div>
 
-    <div class="product-list">
+    <div class="container-fluid" id="contents">
         {% for product in products %}
-            <div class="product">
-                <img src="{{ product.mediumImageUrls.0 }}" alt="Product Image">
-                <p>{{ product.itemName }}</p>
-                <p>¥ {{ product.itemPrice }}</p>
-                <form method="post" action="">{% csrf_token %}
-                    <button class="btn" type="submit">Add</button>
-                </form>
-                <a href="{{ product.itemUrl }}" target="_blank">Buy Now</a>
+            <div class="row justify-content-md-center" id="product">
+                <div class="col-4" id='content_img'>
+                    <img src="{{ product.mediumImageUrls.0 }}" class="img-fluid" alt="Product Image">
+                </div>
+                <div class="col-8" id="description">
+                    <p>{{ product.itemName }}</p>
+                    <div class="row justify-content-between">
+                        
+                    </div>
+                    <div class="row justify-content-between">
+                        <div class="col-6">
+                            <p>¥ {{ product.itemPrice }}</p>
+                        </div>
+                        <div class="col-6" id='shopcart_and_buynow'>
+                            <form method="post" action="">{% csrf_token %}
+                                <button class="btn" type="submit"><i class="bi bi-cart-fill"></i></button>
+                            </form>
+                            <a href="{{ product.itemUrl }}" target="_blank" style="text-decoration:none;">Buy Now</a>
+                        </div>
+                    </div>
+                </div>
             </div>
         {% endfor %}
     </div>

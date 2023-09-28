@@ -3,7 +3,7 @@ import requests,json,datetime,os,re
 import pprint
 
 REQ_URL = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601'
-HITS_PER_PAGE = 2
+HITS_PER_PAGE = 10
 
 req_params = {
     'applicationId':os.environ['RAKUTEN_APP_ID'],
@@ -16,6 +16,7 @@ req_params = {
 def get_products_list(shop_code):
     req_params['shopCode'] = shop_code
     res = requests.get(REQ_URL, params=req_params)
+    #pprint.pprint(res)
     res_json = res.json()['Items']
     """
     for product in res_json['Items']:
