@@ -4,6 +4,8 @@ import os
 import requests
 import os
 
+import random
+
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView, TemplateView
@@ -105,5 +107,18 @@ class ProductListView(TemplateView):
         context = super().get_context_data(**kwargs)
         shop_code = self.request.GET.get(key='shop_code', default='grazia-doris')
         products = get_products_list(shop_code)
+        for i, product in enumerate(products):
+            if i==0:
+                product['random_float'] = 1
+            else:
+                product['random_float'] = random.random()
+            review = round(product['reviewAverage'])
+            if review == 0:
+                review += 1
+            product['reviewAverage'] = list(range(review))
+
         context['products'] = products
+        random_float_list = [random.random() for _ in range(len(products))]
+        random_float_list[0] = 1
+        context['random_float_list'] = random_float_list
         return context
