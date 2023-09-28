@@ -9,10 +9,10 @@
     <div class="container-fluid" id="header">
         <div class="row justify-content-between">
             <div class="col-4" id="back_to_product">
-                <a href="" style="text-decoration:none;"><i class="bi bi-arrow-left-square-fill"></i> Products </a>
+                <a href="{% url 'team_4_app:promotional-video-list' %}" style="text-decoration:none;"><i class="bi bi-arrow-left-square-fill"></i> Products </a>
             </div>
             <div class="col-1">
-                <a href=""><i class="bi bi-cart-fill" id="top_right_icon"></i></a>
+                <a href="{% url 'team_4_app:checkout' %}"><i class="bi bi-cart-fill" id="top_right_icon"></i></a>
             </div>
         </div>
     </div>
