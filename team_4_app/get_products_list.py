@@ -6,7 +6,7 @@ REQ_URL = 'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20220601'
 HITS_PER_PAGE = 10
 
 req_params = {
-    'applicationId':os.environ['RAKUTEN_APP_ID'],
+    'applicationId':os.environ.get('APPLICATION_ID'),
     'format':'json',
     'formatVersion':'2',
     'shopCode':'',
