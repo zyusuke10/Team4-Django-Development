@@ -1,6 +1,9 @@
 import requests
 import os
 
+import requests
+import os
+
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DetailView, TemplateView
