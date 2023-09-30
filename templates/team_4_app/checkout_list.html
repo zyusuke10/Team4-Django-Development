@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+{% extends 'team_4_app/base.html' %} {% block content %}
+{% load static %}
+{% block head %}
+    <link rel="stylesheet" href="{% static 'css/checkout.css' %}">
+{% endblock %}
+
+<div class="checkout-container">
+  <header class="checkout-header">
+    <h2><a href={% url "team_4_app:promotional-video-list" %} rel="noopenner noreferrer">← Checkout</a></h2>
+  </header>
+
+  <div class="delivery-container">
+    <h2 class="delivery-title">Delivery Address</h2>
+    <div class="delivery-info">
+      <h3>Rakuten Panda | (+81)070-567-8901</h3>
+      <h3>Rakuten Crimson House, 1-14-1 Tamagawa, Setagaya-ku, Tokyo</h3>
+    </div>
+  </div>
+
+  {% for cart_item in product_info_list %}
+  <div class="product-container">
+    <div class="product-item">
+      <div class="product-item-left">
+        <img src={{ cart_item.mediumImageUrls.0 }} alt="product image" />
+      </div>
+      <div class="product-item-right">
+        <p class="product-name">{{ cart_item.itemName }}</p>
+        <p class="product-price">¥{{ cart_item.itemPrice }}</p>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+  <div class="shipping-option-container">
+    <div class="shipping-option-title">
+      <p>Shipping Option</p>
+    </div>
+    <div class="shipping-option-info">
+      <p>Regular</p>
+      <p class="shipping-option-price">¥400 ></p>
+    </div>
+  </div>
+
+  <div class="price-container">
+    <p>Order Total</p>
+    <p class="price-container-p">¥{{ order_total  }}</p>
+  </div>
+
+  <div class="total-container">
+    <div class="total-left">
+      <p class="total-left-tx1">Total Payment</p>
+      <p class="total-left-tx2">¥{{  total_price  }}</p>
+    </div>
+
+    <div class="total-right">
+      <div class="order-btn"><a href={% url "team_4_app:promotional-video-list" %} rel="noopenner noreferrer">Place Order</a></div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
