@@ -13,6 +13,7 @@
 }
 
 .product-container {
+  flex-grow: 1;
   margin: 2rem 1.5rem;
 }
 
@@ -74,4 +75,24 @@
 
 .product-price {
   font-weight: 800;
+}
+
+.footer {
+  position: sticky;
+  bottom: 0;
+  padding: 3rem 1.5rem;
+}
+
+.checkout-button {
+  display: block;
+  text-decoration: none;
+  color: #ffffff;
+  background: #A30014;
+  padding: 2rem 1.5rem;
+  border-radius: 2.5rem;
+  width: calc(100% - 3rem);
+
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
 }

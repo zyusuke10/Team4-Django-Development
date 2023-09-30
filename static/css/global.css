@@ -3,8 +3,9 @@
   src: url('../rc-icon.woff');
 }
 
-body {
+html, body {
   margin: 0;
+  height: 100%;
 }
 
 p, h1, h2, h3, h4, h5, h6 {
@@ -12,6 +13,9 @@ p, h1, h2, h3, h4, h5, h6 {
 }
 
 #content {
+  display: flex;
+  flex-direction: column;
+  height: inherit;
 }
 
 .margin-x {

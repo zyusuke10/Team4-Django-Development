@@ -9,10 +9,10 @@
     <div class="container-fluid" id="header">
         <div class="row justify-content-between">
             <div class="col-4" id="back_to_product">
-                <a href="" style="text-decoration:none;"><i class="bi bi-arrow-left-square-fill"></i> Products </a>
+                <a href="javascript:history.go(-1)" style="text-decoration:none;" rel="noopenner noreferrer"><i class="bi bi-arrow-left-square-fill"></i> Products </a>
             </div>
             <div class="col-1">
-                <a href="/team-4-app/cart/"><i class="bi bi-cart-fill" id="top_right_icon"></i></a>
+                <a href="/team-4-app/cart/" rel="noopenner noreferrer"><i class="bi bi-cart-fill" id="top_right_icon"></i></a>
             </div>
         </div>
     </div>
@@ -49,9 +49,11 @@
                         </div>
                         <div class="col-6" id='shopcart_and_buynow'>
                             <form method="post" action="">{% csrf_token %}
-                                <button class="btn" type="submit"><i class="bi bi-cart-fill"></i></button>
+                                <button type="submit" name="product_id" value="{{product.itemCode}}" class="btn">
+                                  <i class="bi bi-cart-fill"></i>
+                                </button>
                             </form>
-                            <a href="{{ product.itemUrl }}" target="_blank" style="text-decoration:none;">Buy Now</a>
+                            <a href="{{ product.itemUrl }}" target="_blank" style="text-decoration:none;" rel="noopenner noreferrer">Buy Now</a>
                         </div>
                     </div>
                 </div>
