@@ -9,7 +9,6 @@ from django.urls import reverse_lazy
 from urllib.parse import urljoin, urlparse
 
 from .models import PromotionalVideo, Cart
-from .get_products_list import get_products_list
 from .constants import shop_code_to_shop_image_url_dict
 from .apis import get_products_by_product_ids, get_products_by_shop_code
 
@@ -49,7 +48,7 @@ class CheckoutListView(ListView):
         context['total_price'] = 0
 
         for product in context['product_info_list']:
-            itemPrice = product["Items"][0]["Item"]["itemPrice"]
+            itemPrice = product["itemPrice"]
             context['total_price'] += itemPrice
                 
         context['order_total'] = context['total_price']
@@ -100,7 +99,7 @@ class ProductListView(TemplateView):
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
         shop_code = self.request.GET.get(key='shop_code', default='grazia-doris')
-        products = get_products_list(shop_code)
+        products = get_products_by_shop_code(shop_code)
         for i, product in enumerate(products):
             if i==0:
                 product['random_float'] = 1
@@ -113,6 +112,17 @@ class ProductListView(TemplateView):
 
         context['products'] = products
         random_float_list = [random.random() for _ in range(len(products))]
-        random_float_list[0] = 1
+        if len(random_float_list) > 0:
+            random_float_list[0] = 1
         context['random_float_list'] = random_float_list
         return context
+    
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        product_id = self.request.POST.get('product_id', None)
+
+        new_cart_product = Cart()
+        new_cart_product.product_id = product_id
+        new_cart_product.save()
+        
+        return self.render_to_response(context)
