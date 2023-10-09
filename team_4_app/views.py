@@ -2,6 +2,7 @@ import requests
 import os
 import random
 
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.views.decorators.http import require_POST
 from django.views.generic import ListView, DeleteView, DetailView, TemplateView
@@ -9,8 +10,8 @@ from django.urls import reverse_lazy
 from urllib.parse import urljoin, urlparse
 
 from .models import PromotionalVideo, Cart
-from .constants import shop_code_to_shop_image_url_dict
-from .apis import get_products_by_product_ids, get_products_by_shop_code
+from .constants import SHIPPING_FEE, shop_code_to_shop_image_url_dict
+from .apis import get_products_by_product_ids, get_products_by_shop_code, get_products_by_item_code
 
 class CartListView(ListView):
     model = Cart
@@ -39,6 +40,7 @@ class CartDeleteView(DeleteView):
         return context
 
 class CheckoutListView(ListView):
+    allow_empty = False
     model = Cart
 
     def get_context_data(self, **kwargs):
@@ -52,23 +54,59 @@ class CheckoutListView(ListView):
             context['total_price'] += itemPrice
                 
         context['order_total'] = context['total_price']
-        context['total_price'] += 400 #Constant shipping fee
+        context['total_price'] += SHIPPING_FEE
 
         return context
 
-@require_POST
-def delete_item_from_cart(request, pk, product_id):
-    print(request.POST)
-    cart = get_object_or_404(Cart, pk=pk)
-    ids = cart.product_id.split(',')
-    #ids.remove(request.POST['product_id'])
-    ids.remove(product_id)
+    def post(self, request, *args, **kwargs):
+        self.model.objects.all().delete()
+        
+        return redirect('team_4_app:promotional_video_list')
 
-    ids = ','.join(ids)
-    cart.product_id = ids
-    cart.save()
+    def dispatch(self, *args, **kwargs):
+        try:
+            return super().dispatch(*args, **kwargs)
+        except Http404:
+            return redirect('team_4_app:promotional_video_list')
 
-    return redirect('team_4_app:', pk=pk)
+class CheckoutOneClickView(TemplateView):
+    model = Cart
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        item_code = self.request.GET.get(key='item_code')
+
+        context['product_info_list'] = get_products_by_item_code(item_code)
+        context['total_price'] = 0
+
+        for product in context['product_info_list']:
+            itemPrice = product["itemPrice"]
+            context['total_price'] += itemPrice
+                
+        context['order_total'] = context['total_price']
+        context['total_price'] += SHIPPING_FEE
+
+        return context
+
+    def post(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+
+        return redirect('team_4_app:promotional_video_list')
+
+#@require_POST
+#def delete_item_from_cart(request, pk, product_id):
+#    print(request.POST)
+#    cart = get_object_or_404(Cart, pk=pk)
+#    ids = cart.product_id.split(',')
+#    #ids.remove(request.POST['product_id'])
+#    ids.remove(product_id)
+
+#    ids = ','.join(ids)
+#    cart.product_id = ids
+#    cart.save()
+
+#    return redirect('team_4_app:', pk=pk)
 
 class PromotionalVideoListView(ListView):
     model = PromotionalVideo
@@ -87,6 +125,8 @@ class PromotionalVideoListView(ListView):
 
         context['shop_stories'] = filtered_shop_stories
 
+        context['cart_items_len'] = Cart.objects.count()
+
         return context
 
 class PromotionalVideoDetailView(DetailView):
@@ -96,6 +136,7 @@ class PromotionalVideoDetailView(DetailView):
 class ProductListView(TemplateView):
     model = Cart
     template_name = 'team_4_app/product_list.html'
+
     def get_context_data(self, **kwargs) -> dict[str]:
         context = super().get_context_data(**kwargs)
         shop_code = self.request.GET.get(key='shop_code', default='grazia-doris')

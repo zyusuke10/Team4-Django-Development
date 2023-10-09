@@ -54,7 +54,11 @@
     </div>
 
     <div class="total-right">
-      <div class="order-btn"><a href={% url "team_4_app:promotional_video_list" %} rel="noopenner noreferrer">Place Order</a></div>
+      <form method="post" action="">{% csrf_token %}
+        <button type="submit" class="order-btn">
+          Place Order
+        </button>
+      </form>
     </div>
   </div>
 </div>

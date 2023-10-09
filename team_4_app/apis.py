@@ -58,3 +58,18 @@ def get_products_by_shop_code(shop_code):
 
     return []
 
+def get_products_by_item_code(item_code):
+    params = {
+        'applicationId': settings.APPLICATION_ID,
+        'itemCode': item_code,
+        'formatVersion': 2,
+        'hits': HITS_PER_PAGE,
+    }
+    response = requests.get(rakuten_ichiba_item_search_url, params=params)
+
+    if response.status_code == 200:
+        data = response.json()['Items']
+        return data
+
+    return []
+
