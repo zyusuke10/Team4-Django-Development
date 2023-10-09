@@ -41,15 +41,11 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  padding: 0 1.5rem 2rem 1.5rem;
+  padding: 8rem 1.5rem 9rem 1.5rem;
 
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;  /* Firefox */
-
-  > div {
-    margin-right: 2.5rem;
-  }
 }
 
 .shop-story-container::-webkit-scrollbar { 
@@ -57,8 +53,8 @@
 }
 
 .shop-logo-gradient {
-  width: 10rem;
-  height: 10rem;
+  width: 9rem;
+  height: 9rem;
   border-radius: 50%;
   background: linear-gradient(to right, red, orange);
   display: flex;
@@ -83,6 +79,8 @@
 
   color: #000000;
   text-decoration: none;
+
+  margin-right: 2.5rem;
 }
 
 .shop-story-code {
@@ -98,6 +96,7 @@
 
 .shop-video-card {
   position: relative;
+  margin: 1rem;
 }
 
 .shop-video {
