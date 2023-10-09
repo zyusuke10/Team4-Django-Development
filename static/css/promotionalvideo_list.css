@@ -4,12 +4,30 @@
   justify-content: space-between;
   align-items: center;
 
-> a {
+  > a {
+    position: relative;
     text-decoration: none;
-    color: #A30014;
-    font-size: 2.5rem;
     font-weight: bold;
+    padding: 0 0.5rem;
   }
+}
+
+.shop-cart {
+  color: #A30014;
+  font-size: 3.5rem;
+}
+
+.shop-cart-len {
+  background: #ffffff;
+  padding: 0 0.5rem;
+  border-radius: 50%;
+  outline: 0.25rem solid #A30014; 
+  position: absolute;
+  color: #000000;
+  top: 0;
+  right: 0;
+  font-size: 1.5rem;
+  margin: 0;
 }
 
 .rakuten-live-logo {
