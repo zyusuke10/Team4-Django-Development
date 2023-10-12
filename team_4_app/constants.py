@@ -1,6 +1,7 @@
 SHIPPING_FEE = 400
 
 shop_code_to_shop_image_url_dict = {
+    'lowbrow': 'https://thumbnail.image.rakuten.co.jp/@0_mall/lowbrow/logo/logo1.jpg?_ex=128x128',
     'keitai-god': 'https://thumbnail.image.rakuten.co.jp/@0_mall/keitai-god/logo/logo1.jpg?_ex=128x128',
     'nike-official': 'https://thumbnail.image.rakuten.co.jp/@0_mall/nike-official/logo/logo1.jpg?_ex=128x128',
     'la-gemme': 'https://thumbnail.image.rakuten.co.jp/@0_mall/la-gemme/logo/logo1.jpg?_ex=96x96',
