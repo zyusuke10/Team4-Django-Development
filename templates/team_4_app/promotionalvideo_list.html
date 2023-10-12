@@ -52,9 +52,12 @@
             <source src='{{promotional_video.video_url}}' type='video/mp4' />
           </video>
         </div>
-        <p class='shop-video-title'>
+        <div class='shop-video-title'>
           {{ promotional_video.title }}
-        </p>
+          <p class='shop-video-description'>
+            {{ promotional_video.description }}
+          </p>
+        </div>
       </a>
     {% endfor %}
   </div>

@@ -44,6 +44,7 @@
   padding: 8rem 1.5rem 9rem 1.5rem;
 
   overflow-x: auto;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;  /* Firefox */
 }
@@ -97,6 +98,8 @@
 .shop-video-card {
   position: relative;
   margin: 1rem;
+  color: #ffffff;
+  text-decoration: none;
 }
 
 .shop-video {
@@ -123,10 +126,13 @@
   font-size: 2.5rem;
   font-weight: bold;
   bottom: 2.5%;
-  color: #ffffff;
-  margin-left: 1rem;
+  margin-left: 2rem;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   z-index: 11;
+}
+
+.shop-video-description {
+  font-size: 1.5rem;
 }
